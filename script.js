@@ -18,9 +18,9 @@ let currentTempData, feelsLikeData, windDirectionDegreesData, windSpeedData, rai
 let dateToday = document.querySelector(".date-today");
 let dateTomorrow = document.querySelector(".date-tomorrow");
 
-temperatureIcon.innerHTML = `<img src="./temp-icon.png" width="15px" height="30px"></img>`;
-isRainingIcon.innerHTML = `<img src="./rain-icon.png" width="30px" height="30px"></img>`;
-isWindyIcon.innerHTML = `<img src="./wind-icon.png" width="30px" height="30px"></img>`;
+temperatureIcon.innerHTML = `<img src="./images/temp-icon.png" width="15px" height="30px"></img>`;
+isRainingIcon.innerHTML = `<img src="./images/rain-icon.png" width="30px" height="30px"></img>`;
+isWindyIcon.innerHTML = `<img src="./images/wind-icon.png" width="30px" height="30px"></img>`;
 
 // weatherAPI uses the open weather map one call API
 const weatherAPI = {
