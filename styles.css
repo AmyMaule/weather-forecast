@@ -1,0 +1,338 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+* {
+    font-family: "Roboto";
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    /* background-image: linear-gradient(to top, rgb(255, 255, 255), rgba(168, 212, 240, 0.9)); */
+    background-color: white;
+    min-height: 100vh;
+    /* background: linear-gradient(rgba(180,222,255,1) 0%, rgba(234,247,254,1) 26%, rgba(255,255,255,1) 67%, rgba(255,255,255,1) 100%);  */
+    background: linear-gradient(rgba(24, 183, 247, 0.897) 0%, rgba(234,247,254,1) 55%, rgb(209, 238, 253) 80%, rgb(222, 233, 248) 100%); 
+    /* background: linear-gradient(rgb(6, 147, 255) 0%, rgba(50, 245, 99, 0.808) 45%, rgb(63, 103, 233) 100%, rgb(66, 206, 241) 100%);  */
+}
+
+header {
+    background-color: white;
+    min-height: 9rem;
+    padding-top: 1.5rem;
+    padding-left: 5rem;
+}
+
+.location {
+    font-weight: 500;
+    min-height: 30px;
+}
+
+.further-location-details {
+    font-size: 0.9rem;
+    margin-top: 0;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.forecast-title {
+    margin-top: 3.5rem;
+    font-size: 1.1rem;
+    margin-left: auto;
+    text-decoration: underline;
+    text-underline-offset: 0.2rem;
+    text-decoration-color: rgb(30, 112, 236);
+    text-decoration-thickness: 2px;
+}
+
+.search {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    /* margin-left: 60vw; */
+    float: left;
+    font-size: 1.1rem;
+    padding-left: 0.5rem;
+    height: 40px;
+    width: 80%;
+    border: 1px solid rgb(161, 161, 161);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    /* margin-right: 5rem; */
+}
+
+.enter {
+    background-color: rgb(66, 195, 255);
+    cursor: pointer;
+    height: 40px;
+    padding: 0;
+    width: 20%;
+    margin: 0;
+    border: 1px solid rgb(161, 161, 161);
+    border-left: none;
+    font-size: 1.1rem;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+/* this stops a thick border from appearing on focus */
+.search:focus {
+    outline: none;
+}
+
+.enter {
+    background-color: rgb(66, 195, 255);
+    cursor: pointer;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid rgb(161, 161, 161);
+    border-left: none;
+    width: 60px;
+    font-size: 1.1rem;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.enter:hover {
+    background-color: rgb(70, 218, 255);
+    border: none;
+}
+
+hr {
+    border: 1px solid rgb(156, 156, 156);
+}
+main {
+    padding-left: 5rem;
+}
+
+.current-conditions {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin-top: 3rem;
+    margin-right: 40vw;
+    min-width: 750px;
+    min-height: 100px;
+    background-color: white;
+    /* align-items centers vertically */
+    align-items: center;
+    gap: 1em;
+    /* this padding is for the top and bottom of the whole div */
+    padding: 1em 0 1em 0;
+    box-shadow: 0 0 8px 2px rgb(206, 206, 206);
+    border-radius: 5px;
+}
+
+/* this gives padding to each column on the left and right */
+.current-conditions * {
+    padding: 0 0.1em 0;
+    align-self: center;
+    justify-self: center;
+    place-items: center;
+
+}
+
+.main-title {
+    grid-column: 1 / -1;
+    justify-self: unset;
+    padding-left: 1em;
+}
+
+.weather-icon {
+    padding-left: 1.5em;
+    grid-column: 1 / 2;
+
+}
+
+.temp {
+    grid-column: 2 / 3;
+    font-size: 2.5rem;
+    display: grid;
+    grid-template-columns: (2, 1fr);
+    grid-template-columns: min-content 1fr;
+}
+
+.temp-icon {
+    padding-left: 0.5em;
+    padding-right: 0;
+}
+
+.current-temp {
+    padding-left: 0.2rem;
+    place-items: center;
+    /* align-self: center; */
+    /* justify-self: center; */
+    /* padding-left: 0.5em; */
+}
+
+.above-zero {
+    color: rgb(206, 2, 2);
+}
+
+.below-zero {
+    color: rgb(0, 116, 224);
+}
+
+.feels-like {
+    grid-column: 3 / 4;
+    justify-self: center;
+    font-size: 1em;  
+}
+
+.raining {
+    grid-column: 4 / 5;
+    font-size: 2em;
+    display: grid;
+    grid-template-columns: (2, 1fr);
+    /* place-self: left; */
+    /* grid-template-columns: min-content 1fr; */
+    /* grid-template-rows: (1, 1fr); */
+}
+
+.is-raining-icon {
+    padding-left: 0.3em;
+    padding-right: 0;
+}
+
+.is-raining {
+    font-size: 2.5rem;
+    grid-column: 4 / 5;
+    /* padding-left: 0.5em; */
+    grid-row: 1 / 2;
+    /* place-self: left; */
+    /* float: left; */
+    color: rgb(0, 116, 224);
+    letter-spacing: -2px;
+}
+
+.is-raining-mm {
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+    padding-left: 2.7rem;
+    padding-top: 1rem;
+    font-size: 0.7rem;
+    color: rgb(0, 116, 224);
+}
+
+.double-digit {
+    padding-left: 4.8rem;
+}
+
+.triple-digit {
+    padding-left: 6.2rem;
+}
+
+.windy {
+    grid-column: 5 / 6;
+    font-size: 1.1em;
+    display: grid;
+    grid-template-columns: (3, 1fr);
+    /* grid-template-columns: min-content 1fr; */
+}
+
+.is-windy-icon {
+    grid-column: 1 / 2;
+    /* grid-row: 1 / 2; */
+}
+
+.wind-speed {
+    grid-column: 2 / 3;
+    font-size: 0.8em;
+    /* grid-row: 2 / 3; */
+    padding-left: 0.3em;
+    min-width: 50px;
+}
+
+.wind-direction {
+    grid-column: 3 / 4;
+    /* grid-row: 3 / 4; */
+    /* padding-left: 0.2em; */
+    padding-right: 0.4em;
+    font-size: 1.6rem;
+    padding-bottom: 0.3em;
+    font-weight: bold;
+}
+
+.popular-th {
+    font-size: 1.6rem;
+    padding-bottom: 1.5rem;
+}
+
+.popular {
+    max-width: 300px;
+    min-width: 80px;
+}
+
+.locations-table {
+    margin-top: 6rem;
+    width: 650px;
+    /* border-collapse gets rid of the margins between the columns, so there are no gaps in the border, it is just one long line */
+    border-collapse: collapse;
+    margin-right: auto;
+    margin-left: 6rem;
+}
+
+.table-section {
+    margin-top: 3rem;
+    margin-left: 1rem;
+    margin-right: 6rem;
+}
+
+.forecast-table {
+    margin-top: 2rem;
+    width: 100%;
+    /* border-collapse gets rid of the margins between the columns, so there are no gaps in the border, it is just one long line */
+    border-collapse: collapse;
+}
+
+.table-title {
+    margin-top: 6rem;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+tr {
+    height: 75px;
+    /* background-color: rgb(227, 211, 241); */
+}
+
+.tr-header {
+    height: 25px;
+    margin-top: 2em;
+}
+
+th {
+    font-size: 0.8rem;
+    font-weight: 500;
+    border-bottom: 1px solid rgb(172, 169, 169);
+    border-collapse: collapse;
+}
+
+td {
+    /* align-items: center; */
+    /* justify-content: center; */
+    text-align: center;
+    padding: 0;
+    border-bottom: 1px solid rgb(172, 169, 169);
+}
+
+.left-align {
+    text-align: left;
+    padding-left: 1rem;
+}
+
+.max-min {
+    color: rgb(206, 2, 2);
+}
+
+.td-wind {
+    font-size: 0.9rem;
+}
+
+.td-rain {
+    font-size: 0.9rem;
+    color: rgb(0, 116, 224);
+}
+
+.hide {
+    display: none;
+}

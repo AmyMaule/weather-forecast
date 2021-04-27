@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h2 class="location"></h2>
+        <h6 class="further-location-details">
+            <!-- Aude, Languedoc-Roussillon-Midi-Pyrénées (France), elevation 291m -->
+        </h6>
+        <div>
+            <input type="text" autocomplete="off" class="search" placeholder="Search..." focus>
+            <button class="enter"><i class="fa fa-search"></i></button>
+        </div>
+        <!-- <h4 class="forecast-title">Forecast</h4> -->
+    </header>
+    <hr>
+    <main>
+        <div class="current-conditions hide">
+            <h3 class="main-title">Current conditions</h3>
+            <div class="weather-icon"></div>
+            <span class="temp">
+                <span class="temp-icon"></span>
+                <span class="current-temp"></span>
+            </span>
+            <div class="feels-like"></div>
+            <span class="raining">
+                <span class="is-raining-icon"></span>
+                <span class="is-raining"></span>
+                <span class="is-raining-mm">mm</span>
+            </span>
+            <span class="windy">
+                <span class="is-windy-icon"></span>
+                <span class="wind-speed"></span>
+                <div class="wind-direction">&#x2198;</div>
+            </span>
+        </div>
+
+        <div class="interesting-locations">
+            <table class="locations-table">
+                <tr class="tr-header">
+                    <th class="popular-th left-align">Popular destinations</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td class="popular left-align popular-city"></td>
+                    <td class="popular popular-icon"></td>
+                    <td class="popular popular-max-min"></td>
+                    <td class="popular popular-rain below-zero"></td>
+                </tr>
+                <tr>
+                    <td class="popular left-align popular-city"></td>
+                    <td class="popular popular-icon"></td>
+                    <td class="popular popular-max-min"></td>
+                    <td class="popular popular-rain below-zero"></td>             
+                </tr>
+                <tr>
+                    <td class="popular left-align popular-city"></td>
+                    <td class="popular popular-icon"></td>
+                    <td class="popular popular-max-min"></td>
+                    <td class="popular popular-rain below-zero"></td>              
+                </tr>
+            </table>
+        </div>
+
+        <div class="table-section hide">
+            <h2 class="table-title">Next 48 hours</h2>
+                <table class="forecast-table">
+                    <thead>
+                        <tr class="tr-header">
+                            <th></th>
+                            <th>Night</th>
+                            <th>Morning</th>
+                            <th>Afternoon</th>
+                            <th>Evening</th>
+                            <th>Max/min</th>
+                            <th>Precip.</th>
+                            <th>Wind</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="left-align date-today"></td>
+                            <td class="td-night td-night-top"></td>
+                            <td class="td-morning td-morning-top"></td>
+                            <td class="td-afternoon td-afternoon-top"></td>
+                            <td class="td-evening td-evening-top"></td>
+                            <td class="max-min max-min-top"></td>
+                            <td class="td-rain td-rain-top"></td>
+                            <td class="td-wind td-wind-top"></td>
+                        </tr>
+                        <tr>
+                            <td class="left-align date-tomorrow"></td>
+                            <td class="td-night td-night-bottom"></td>
+                            <td class="td-morning td-morning-bottom"></td>
+                            <td class="td-afternoon td-afternoon-bottom"></td>
+                            <td class="td-evening td-evening-bottom"></td>
+                            <td class="max-min max-min-bottom"></td>
+                            <td class="td-rain td-rain-bottom"></td>
+                            <td class="td-wind td-wind-bottom"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2 class="table-title">Next 7 days</h2>
+                    <table class="forecast-table">
+                        <thead>
+                            <tr class="tr-header">
+                                <th></th>
+                                <th class="upcoming-day-date"></th>
+                                <th class="upcoming-day-date"></th>
+                                <th class="upcoming-day-date"></th>
+                                <th class="upcoming-day-date"></th>
+                                <th class="upcoming-day-date"></th>
+                                <th class="upcoming-day-date"></th>
+                                <th class="upcoming-day-date"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="left-align">Weather overview</td>
+                                <td class="upcoming-days"></td>
+                                <td class="upcoming-days"></td>
+                                <td class="upcoming-days"></td>
+                                <td class="upcoming-days"></td>
+                                <td class="upcoming-days"></td>
+                                <td class="upcoming-days"></td>
+                                <td class="upcoming-days"></td>
+                            </tr>
+                        </tbody>
+                </table>
+
+        </div>
+    </main>
+</body>
+</html>
