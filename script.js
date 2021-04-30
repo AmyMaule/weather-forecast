@@ -47,7 +47,7 @@ function runQuery(e) {
 const geocodingAPI = {
     // the api call is: http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
     key: "c73ff1dedf4b4bfc101b045bb7809c2e",
-    baseURL: "http://api.openweathermap.org/geo/1.0/direct",
+    baseURL: "https://api.openweathermap.org/geo/1.0/direct",
 };
 
 function geoCode(city) {
