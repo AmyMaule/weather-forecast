@@ -14,7 +14,11 @@ let mainCurrentTemp = document.querySelector(".current-temp");
 let mainFeelsLike = document.querySelector(".feels-like");
 let mainIsRaining = document.querySelector(".is-raining");
 let mainWindSpeed = document.querySelector(".wind-speed");
-let currentTempData, feelsLikeData, windDirectionDegreesData, windSpeedData, rainData;
+let currentTempData,
+    feelsLikeData,
+    windDirectionDegreesData,
+    windSpeedData,
+    rainData;
 let dateToday = document.querySelector(".date-today");
 let dateTomorrow = document.querySelector(".date-tomorrow");
 
@@ -26,7 +30,7 @@ isWindyIcon.innerHTML = `<img src="./images/wind-icon.png" width="30px" height="
 const weatherAPI = {
     // the api calls is: https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&units=metric&appid={API_key}
     key: "c73ff1dedf4b4bfc101b045bb7809c2e",
-    baseURL: "https://api.openweathermap.org/data/2.5/onecall"
+    baseURL: "https://api.openweathermap.org/data/2.5/onecall",
 };
 
 searchBar.addEventListener("keypress", runQuery);
@@ -43,14 +47,15 @@ function runQuery(e) {
 const geocodingAPI = {
     // the api call is: http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
     key: "c73ff1dedf4b4bfc101b045bb7809c2e",
-    baseURL: "http://api.openweathermap.org/geo/1.0/direct"
+    baseURL: "http://api.openweathermap.org/geo/1.0/direct",
 };
 
 function geoCode(city) {
-    fetch (`${geocodingAPI.baseURL}?q=${city}&limit=1&appid=${geocodingAPI.key}`)
-    .then(currentCity => {
-        return currentCity.json();
-    }).then(findLatLon);
+    fetch(`${geocodingAPI.baseURL}?q=${city}&limit=1&appid=${geocodingAPI.key}`)
+        .then((currentCity) => {
+            return currentCity.json();
+        })
+        .then(findLatLon);
 }
 
 function findLatLon(city) {
@@ -62,14 +67,16 @@ function findLatLon(city) {
 
 // Units can be changed here to imperial if needed
 function getCurrentWeather(lat, lon) {
-    fetch(`${weatherAPI.baseURL}?lat=${lat}&lon=${lon}&units=metric&appid=${weatherAPI.key}`)
-    .then(currentWeather => {
-        return currentWeather.json();
-    })
-    .then(displayMainResults)
-    .then(display48HourIcons)
-    .then(display48HourData)
-    .then(display7DayData);
+    fetch(
+        `${weatherAPI.baseURL}?lat=${lat}&lon=${lon}&units=metric&appid=${weatherAPI.key}`
+    )
+        .then((currentWeather) => {
+            return currentWeather.json();
+        })
+        .then(displayMainResults)
+        .then(display48HourIcons)
+        .then(display48HourData)
+        .then(display7DayData);
 }
 
 function displayMainResults(data) {
@@ -98,7 +105,7 @@ function displayMainResults(data) {
 
     if (data.current.rain || data.current.snow) {
         if (data.current.rain) {
-            rainData = data.current.rain["1h"];    
+            rainData = data.current.rain["1h"];
         } else {
             rainData = data.current.snow["1h"];
         }
@@ -119,7 +126,7 @@ function displayMainResults(data) {
 
     windSpeedData = data.current.wind_speed;
     mainWindSpeed.innerHTML = `${Math.round(windSpeedData)} m/s`;
-    
+
     // the main conditions div is set to be hidden by default so it doesn't show empty data slots
     currentConditionsDiv.classList.remove("hide");
     tableSection.classList.remove("hide");
@@ -130,7 +137,11 @@ function displayMainResults(data) {
 // the sole purpose of this function is to return the name of the weather icon that will be passed back to displayResults
 function getWeatherIcon(mainWeather, detailedWeather) {
     // For Clear, Drizzle and Thunderstorm, the description is irrelevant because the icon will be the same regardless, whereas with the rest of the weather, the description will determine which icon is used (eg. light rain vs heavy rain)
-    if (mainWeather == "Clear" || mainWeather == "Drizzle" || mainWeather == "Thunderstorm") {
+    if (
+        mainWeather == "Clear" ||
+        mainWeather == "Drizzle" ||
+        mainWeather == "Thunderstorm"
+    ) {
         return mainWeather.toLowerCase();
     } else if (mainWeather == "Clouds") {
         if (detailedWeather == "few clouds") {
@@ -139,11 +150,17 @@ function getWeatherIcon(mainWeather, detailedWeather) {
     } else if (mainWeather == "Snow") {
         if (detailedWeather == "heavy snow") {
             return "lots-of-snow";
-        } else if (detailedWeather == "shower snow" || detailedWeather == "heavy shower snow") {
+        } else if (
+            detailedWeather == "shower snow" ||
+            detailedWeather == "heavy shower snow"
+        ) {
             return "cloud-snow";
         } else return "snow";
     } else if (mainWeather == "Rain") {
-        if (detailedWeather == "light rain" || detailedWeather == "light intensity shower rain") {
+        if (
+            detailedWeather == "light rain" ||
+            detailedWeather == "light intensity shower rain"
+        ) {
             return "drizzle";
         } else if (detailedWeather == "freezing rain") {
             return "snow";
@@ -171,8 +188,7 @@ function getWindDirection(windDirection) {
         return "&#x2190;";
     } else if (windDirection > 292.5 && windDirection <= 337.5) {
         return "&#x2196;";
-    } 
-    else return "";
+    } else return "";
 }
 
 // This function displays the weather icons underneath Night - Evening in the 48 hour section
@@ -189,30 +205,40 @@ function display48HourIcons(data) {
     // this gets the current time for the person who is searching (unrelated to the location searched for)
     let currentTimeInLocation = new Date(data.current.dt * 1000);
     let currentTimeInHoursUTC = new Date(currentTimeInLocation).getUTCHours();
-    
+
     // hoursInLocation gives the time in hours (eg. 17:34 is 17) in the location that is being searched for - I divided by 3600 as the data.timezone_offset is in seconds, and currentTimeinHoursUTC is in hours - Math.round is to take care of the half hour time zones that exist in some places so it doesn't end up as a decimal
-    let hoursInLocation = Math.round(currentTimeInHoursUTC + (data.timezone_offset / 3600));
+    let hoursInLocation = Math.round(
+        currentTimeInHoursUTC + data.timezone_offset / 3600
+    );
     console.log("current time in timezone: ", hoursInLocation);
-    
+
     let hours;
     let tdTop = [tdNightTop, tdMorningTop, tdAfternoonTop, tdEveningTop];
-    let tdBottom = [tdNightBottom, tdMorningBottom, tdAfternoonBottom, tdEveningBottom];
+    let tdBottom = [
+        tdNightBottom,
+        tdMorningBottom,
+        tdAfternoonBottom,
+        tdEveningBottom,
+    ];
 
     // if/else block chooses which times to display on the 48hr table based on current time
     if (hoursInLocation >= 21) {
-        // if it is currently after 9pm, get tomorrow's weather instead - set hoursInLocation to 21 so that I don't have to write multiple extra statements for if it is 22 or 23. 
+        // if it is currently after 9pm, get tomorrow's weather instead - set hoursInLocation to 21 so that I don't have to write multiple extra statements for if it is 22 or 23.
         hoursInLocation = 21;
         // here the hours starts at 27 as it is 24 hours + 3am, i.e., tomorrow at 3am
         hours = 27;
     } else {
         // the hours starts at 3 for 3am
-        hours = 3;  
+        hours = 3;
     }
 
     for (let i = 0; i < tdTop.length; i++) {
         if (hours - hoursInLocation >= 0) {
             // console.log(data.hourly[hours-hoursInLocation])
-            tdTop[i].innerHTML = `<img src="./weather-icons/${getWeatherIcon(data.hourly[hours-hoursInLocation].weather[0].main, data.hourly[hours-hoursInLocation].weather[0].description)}.png" width="50px" height="50px"></img>`;
+            tdTop[i].innerHTML = `<img src="./weather-icons/${getWeatherIcon(
+                data.hourly[hours - hoursInLocation].weather[0].main,
+                data.hourly[hours - hoursInLocation].weather[0].description
+            )}.png" width="50px" height="50px"></img>`;
         }
         hours += 6;
     }
@@ -220,7 +246,10 @@ function display48HourIcons(data) {
     // for tomorrow, no matter the current time, display 3am 9am 3pm 9pm
     for (let i = 0; i < tdBottom.length; i++) {
         hours = 27;
-        tdBottom[i].innerHTML = `<img src="./weather-icons/${getWeatherIcon(data.hourly[hours-hoursInLocation].weather[0].main, data.hourly[hours-hoursInLocation].weather[0].description)}.png" width="50px" height="50px"></img>`;
+        tdBottom[i].innerHTML = `<img src="./weather-icons/${getWeatherIcon(
+            data.hourly[hours - hoursInLocation].weather[0].main,
+            data.hourly[hours - hoursInLocation].weather[0].description
+        )}.png" width="50px" height="50px"></img>`;
         hours += 6;
     }
 
@@ -245,34 +274,50 @@ function display48HourData(dataArray) {
     let tomorrow = 1;
     if (hoursInLocation < 21) {
         dateToday.innerHTML = new Date().toDateString();
-        dateTomorrow.innerHTML = new Date((new Date()).getTime() + 86400000).toDateString();
+        dateTomorrow.innerHTML = new Date(
+            new Date().getTime() + 86400000
+        ).toDateString();
     } else {
         today = 1;
         tomorrow = 2;
-        dateToday.innerHTML = new Date((new Date()).getTime() + 86400000).toDateString();
-        dateTomorrow.innerHTML = new Date((new Date()).getTime() + (2 * 86400000)).toDateString();
+        dateToday.innerHTML = new Date(
+            new Date().getTime() + 86400000
+        ).toDateString();
+        dateTomorrow.innerHTML = new Date(
+            new Date().getTime() + 2 * 86400000
+        ).toDateString();
     }
-    
-    maxMinTop.innerHTML = `${Math.round(data.daily[today].temp.max)}\xB0/${Math.round(data.daily[today].temp.min)}\xB0`;
-    maxMinBottom.innerHTML = `${Math.round(data.daily[tomorrow].temp.max)}\xB0/${Math.round(data.daily[tomorrow].temp.min)}\xB0`; 
+
+    maxMinTop.innerHTML = `${Math.round(
+        data.daily[today].temp.max
+    )}\xB0/${Math.round(data.daily[today].temp.min)}\xB0`;
+    maxMinBottom.innerHTML = `${Math.round(
+        data.daily[tomorrow].temp.max
+    )}\xB0/${Math.round(data.daily[tomorrow].temp.min)}\xB0`;
 
     if (data.daily[today].rain || data.daily[today].snow) {
         if (data.daily[today].rain) {
-            tdRainTop.innerHTML = `${data.daily[today].rain.toFixed(1)}mm`;        
+            tdRainTop.innerHTML = `${data.daily[today].rain.toFixed(1)}mm`;
         } else {
-            tdRainTop.innerHTML = `${data.daily[today].snow.toFixed(1)}mm`;        
-            }
+            tdRainTop.innerHTML = `${data.daily[today].snow.toFixed(1)}mm`;
+        }
     }
 
     if (data.daily[tomorrow].rain || data.daily[tomorrow].snow) {
         if (data.daily[tomorrow].rain) {
-            tdRainBottom.innerHTML = `${data.daily[tomorrow].rain.toFixed(1)}mm`;        
+            tdRainBottom.innerHTML = `${data.daily[tomorrow].rain.toFixed(
+                1
+            )}mm`;
         } else {
-            tdRainBottom.innerHTML = `${data.daily[tomorrow].snow.toFixed(1)}mm`;        
-            }
+            tdRainBottom.innerHTML = `${data.daily[tomorrow].snow.toFixed(
+                1
+            )}mm`;
+        }
     }
     tdWindTop.innerHTML = `${Math.round(data.daily[today].wind_speed)}m/s`;
-    tdWindBottom.innerHTML = `${Math.round(data.daily[tomorrow].wind_speed)}m/s`;
+    tdWindBottom.innerHTML = `${Math.round(
+        data.daily[tomorrow].wind_speed
+    )}m/s`;
     return data;
 }
 
@@ -282,7 +327,10 @@ function display7DayData(data) {
 
     for (let i = 0; i < days.length; i++) {
         // data.daily[0] gives today's weather, data.daily[1] gives tomorrow's, etc
-        days[i].innerHTML = `<img src="./weather-icons/${getWeatherIcon(data.daily[i+1].weather[0].main, data.daily[i+1].weather[0].description)}.png" width="50px" height="50px"></img>`;
+        days[i].innerHTML = `<img src="./weather-icons/${getWeatherIcon(
+            data.daily[i + 1].weather[0].main,
+            data.daily[i + 1].weather[0].description
+        )}.png" width="50px" height="50px"></img>`;
         let singleDate = new Date(data.daily[i].dt * 1000);
         // the slice gets rid of all the rest of the date, only keeping characters 0 to 10
         let singleDateString = new Date(singleDate).toString().slice(0, 10);
@@ -293,33 +341,37 @@ function display7DayData(data) {
 
 // This will take the "popular cities" below, and use their latitude and longitude to fetch the weather data for each city
 function fetchPopularData(cities) {
-    cities.forEach(city => {
-        fetch(`${weatherAPI.baseURL}?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${weatherAPI.key}`)
-        .then(currentCity => {
-            return currentCity.json();
-        }).then(displayPopularData);
-    })
-};
+    cities.forEach((city) => {
+        fetch(
+            `${weatherAPI.baseURL}?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${weatherAPI.key}`
+        )
+            .then((currentCity) => {
+                return currentCity.json();
+            })
+            .then(displayPopularData);
+    });
+}
 
 let popularCities = [
     {
         city: "London, United Kingdom",
         timezone: "Europe/London",
         lat: 51.5085,
-        lon: -0.1257
+        lon: -0.1257,
     },
     {
         city: "Paris, France",
         timezone: "Europe/Paris",
         lat: 48.8534,
-        lon: 2.3488
+        lon: 2.3488,
     },
     {
         city: "Tokyo, Japan",
         timezone: "Asia/Tokyo",
         lat: 35.6895,
-        lon: 139.6917
-    }];
+        lon: 139.6917,
+    },
+];
 
 fetchPopularData(popularCities);
 
@@ -331,14 +383,21 @@ function displayPopularData(data) {
 
     for (let i = 0; i < popularCities.length; i++) {
         if (popularCities[i].timezone == data.timezone) {
-            cityIcons[i].innerHTML = `<img src="./weather-icons/${getWeatherIcon(data.current.weather[0].main, data.current.weather[0].main)}.png" width="60px" height="60px"></img>`;
+            cityIcons[
+                i
+            ].innerHTML = `<img src="./weather-icons/${getWeatherIcon(
+                data.current.weather[0].main,
+                data.current.weather[0].main
+            )}.png" width="60px" height="60px"></img>`;
             cityNames[i].innerHTML = popularCities[i].city;
-            popMaxMin[i].innerHTML = `${Math.round(data.daily[0].temp.max)}\xB0/${Math.round(data.daily[0].temp.min)}\xB0`;
+            popMaxMin[i].innerHTML = `${Math.round(
+                data.daily[0].temp.max
+            )}\xB0/${Math.round(data.daily[0].temp.min)}\xB0`;
             if (data.daily[0].rain) {
-            popularRain[i].innerHTML = `${data.daily[0].rain}mm`;
+                popularRain[i].innerHTML = `${data.daily[0].rain.toFixed(1)}mm`;
             } else {
                 popularRain[i].innerHTML = "0mm";
             }
-        }    
-    }   
+        }
+    }
 }
