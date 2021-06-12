@@ -1,11 +1,11 @@
 @font-face {
     font-family: QuicksandBook;
-    src: url(./fonts/fonts2/Quicksand_Book.otf);
+    src: url(./fonts/Quicksand_Book.otf);
 }
 
 @font-face {
     font-family: QuicksandBookBold;
-    src: url(./fonts/fonts2/Quicksand_Bold.otf)
+    src: url(./fonts/Quicksand_Bold.otf)
 }
 
 * {
