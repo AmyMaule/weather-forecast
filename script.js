@@ -327,8 +327,8 @@ function display7DayData(data) {
         let singleDate = new Date(data.daily[i].dt * 1000);
         let singleDateString;
         // If the window is less than about 800px wide, having the full date (eg. Sat Jun 12) makes the table too squashed, so using .slice(4, 10) gives the string "Jun 12" instead of the else statement, where .slice(0, 10) gives "Sat Jun 12"
-        if (window.innerWidth <= 800) {
-            if (window.innerWidth <= 400) {
+        if (window.innerWidth <= 1080) {
+            if (window.innerWidth <= 450) {
                 singleDateString = new Date(singleDate).toString().slice(0, 3);
             } else {
             // the slice gets rid of all the rest of the date, only keeping characters 4 to 10
