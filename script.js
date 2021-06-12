@@ -283,8 +283,13 @@ function display48HourData(dataArray) {
     } else {
         today = 1;
         tomorrow = 2;
-        dateToday.innerHTML = new Date(new Date().getTime() + 86400000).toDateString();
-        dateTomorrow.innerHTML = new Date(new Date().getTime() + 2 * 86400000).toDateString();
+        if (window.innerWidth <= 580) {
+            dateToday.innerHTML = new Date(new Date().getTime() + 86400000).toDateString().slice(4, 10);
+            dateTomorrow.innerHTML = new Date(new Date().getTime() + 2 * 86400000).toDateString().slice(4, 10);
+        } else {
+            dateToday.innerHTML = new Date(new Date().getTime() + 86400000).toDateString();
+            dateTomorrow.innerHTML = new Date(new Date().getTime() + 86400000).toDateString();
+        }
     }
 
     maxMinTop.innerHTML = `${Math.round(
@@ -335,6 +340,9 @@ function display7DayData(data) {
             singleDateString = new Date(singleDate).toString().slice(4, 10);
             // The left table header for the 7 day overview at the bottom says "Weather overview" when the screen is larger, and just "Overview" when it is smaller, to make more space for padding around the weather icons
             document.querySelector(".seven-day-overview").innerHTML = "Overview";
+            }
+            if (window.innerWidth <= 370) {
+                document.querySelector(".th-max-min").innerHTML = "";
             }
         } else {
             // the slice gets rid of all the rest of the date, only keeping characters 0 to 10
