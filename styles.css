@@ -1,18 +1,26 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto);
+@font-face {
+    font-family: QuicksandBook;
+    src: url(./fonts/fonts2/Quicksand_Book.otf);
+}
+
+@font-face {
+    font-family: QuicksandBookBold;
+    src: url(./fonts/fonts2/Quicksand_Bold.otf)
+}
 
 * {
-    font-family: "Roboto";
+    font-family: QuicksandBook;
     padding: 0;
     margin: 0;
 }
 
 body {
-    /* background-image: linear-gradient(to top, rgb(255, 255, 255), rgba(168, 212, 240, 0.9)); */
-    background-color: white;
-    min-height: 100vh;
-    /* background: linear-gradient(rgba(180,222,255,1) 0%, rgba(234,247,254,1) 26%, rgba(255,255,255,1) 67%, rgba(255,255,255,1) 100%);  */
-    background: linear-gradient(rgba(24, 183, 247, 0.897) 0%, rgba(234,247,254,1) 55%, rgb(209, 238, 253) 80%, rgb(222, 233, 248) 100%); 
-    /* background: linear-gradient(rgb(6, 147, 255) 0%, rgba(50, 245, 99, 0.808) 45%, rgb(63, 103, 233) 100%, rgb(66, 206, 241) 100%);  */
+    min-height: 100vmax;
+    background: linear-gradient(rgba(24, 183, 247, 0.897) 0%, rgba(234,247,254,1) 55%, rgb(209, 238, 253) 80%, rgb(250, 252, 255) 100%); 
+    background:-webkit-linear-gradient(rgba(24, 183, 247, 0.897) 0%, rgba(234,247,254,1) 55%, rgb(209, 238, 253) 80%, rgb(222, 233, 248) 100%); 
+    background:-moz-linear-gradient(rgba(24, 183, 247, 0.897) 0%, rgba(234,247,254,1) 55%, rgb(209, 238, 253) 80%, rgb(222, 233, 248) 100%); 
+    background:-o-linear-gradient(rgba(24, 183, 247, 0.897) 0%, rgba(234,247,254,1) 55%, rgb(209, 238, 253) 80%, rgb(222, 233, 248) 100%); 
+    background:-ms-linear-gradient(rgba(24, 183, 247, 0.897) 0%, rgba(234,247,254,1) 55%, rgb(209, 238, 253) 80%, rgb(222, 233, 248) 100%);
 }
 
 header {
@@ -48,12 +56,14 @@ header {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    /* margin-left: 60vw; */
-    float: left;
+    position: absolute;
+    left: 0;
+    right: 60px;
+    margin: auto;
     font-size: 1.1rem;
     padding-left: 0.5rem;
     height: 40px;
-    width: 80%;
+    width: 70%;
     border: 1px solid rgb(161, 161, 161);
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -61,11 +71,15 @@ header {
 }
 
 .enter {
+    position: absolute;
+    right: 12.8%;
+    margin: auto;
     background-color: rgb(66, 195, 255);
     cursor: pointer;
     height: 40px;
     padding: 0;
     width: 20%;
+    width: 60px;
     margin: 0;
     border: 1px solid rgb(161, 161, 161);
     border-left: none;
@@ -79,20 +93,6 @@ header {
     outline: none;
 }
 
-.enter {
-    background-color: rgb(66, 195, 255);
-    cursor: pointer;
-    height: 40px;
-    padding: 0;
-    margin: 0;
-    border: 1px solid rgb(161, 161, 161);
-    border-left: none;
-    width: 60px;
-    font-size: 1.1rem;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
 .enter:hover {
     background-color: rgb(70, 218, 255);
     border: none;
@@ -103,6 +103,7 @@ hr {
 }
 main {
     padding-left: 5rem;
+    position: relative;
 }
 
 .current-conditions {
@@ -128,10 +129,10 @@ main {
     align-self: center;
     justify-self: center;
     place-items: center;
-
 }
 
 .main-title {
+    font-family: QuicksandBookBold;
     grid-column: 1 / -1;
     justify-self: unset;
     padding-left: 1em;
@@ -140,7 +141,6 @@ main {
 .weather-icon {
     padding-left: 1.5em;
     grid-column: 1 / 2;
-
 }
 
 .temp {
@@ -159,9 +159,6 @@ main {
 .current-temp {
     padding-left: 0.2rem;
     place-items: center;
-    /* align-self: center; */
-    /* justify-self: center; */
-    /* padding-left: 0.5em; */
 }
 
 .above-zero {
@@ -183,9 +180,6 @@ main {
     font-size: 2em;
     display: grid;
     grid-template-columns: (2, 1fr);
-    /* place-self: left; */
-    /* grid-template-columns: min-content 1fr; */
-    /* grid-template-rows: (1, 1fr); */
 }
 
 .is-raining-icon {
@@ -196,10 +190,7 @@ main {
 .is-raining {
     font-size: 2.5rem;
     grid-column: 4 / 5;
-    /* padding-left: 0.5em; */
     grid-row: 1 / 2;
-    /* place-self: left; */
-    /* float: left; */
     color: rgb(0, 116, 224);
     letter-spacing: -2px;
 }
@@ -226,26 +217,21 @@ main {
     font-size: 1.1em;
     display: grid;
     grid-template-columns: (3, 1fr);
-    /* grid-template-columns: min-content 1fr; */
 }
 
 .is-windy-icon {
     grid-column: 1 / 2;
-    /* grid-row: 1 / 2; */
 }
 
 .wind-speed {
     grid-column: 2 / 3;
     font-size: 0.8em;
-    /* grid-row: 2 / 3; */
     padding-left: 0.3em;
     min-width: 50px;
 }
 
 .wind-direction {
     grid-column: 3 / 4;
-    /* grid-row: 3 / 4; */
-    /* padding-left: 0.2em; */
     padding-right: 0.4em;
     font-size: 1.6rem;
     padding-bottom: 0.3em;
@@ -255,6 +241,7 @@ main {
 .popular-th {
     font-size: 1.6rem;
     padding-bottom: 1.5rem;
+    font-family: QuicksandBookBold;
 }
 
 .popular {
@@ -264,7 +251,8 @@ main {
 
 .locations-table {
     margin-top: 6rem;
-    width: 650px;
+    width: 92vw;
+    max-width: 800px;
     /* border-collapse gets rid of the margins between the columns, so there are no gaps in the border, it is just one long line */
     border-collapse: collapse;
     margin-right: auto;
@@ -280,19 +268,26 @@ main {
 .forecast-table {
     margin-top: 2rem;
     width: 100%;
-    /* border-collapse gets rid of the margins between the columns, so there are no gaps in the border, it is just one long line */
     border-collapse: collapse;
+}
+
+.upcoming-days {
+    padding-top: 0.7rem;
+}
+
+.upcoming {
+    padding-bottom: 5rem;
 }
 
 .table-title {
     margin-top: 6rem;
     text-align: center;
     font-size: 1.2rem;
+    font-family: QuicksandBookBold;
 }
 
 tr {
     height: 75px;
-    /* background-color: rgb(227, 211, 241); */
 }
 
 .tr-header {
@@ -308,11 +303,18 @@ th {
 }
 
 td {
-    /* align-items: center; */
-    /* justify-content: center; */
     text-align: center;
     padding: 0;
     border-bottom: 1px solid rgb(172, 169, 169);
+}
+
+.td-small {
+    /* border-bottom: none; */
+    padding-bottom: 1rem;
+}
+
+.th-small {
+    border: none;
 }
 
 .left-align {
@@ -335,4 +337,251 @@ td {
 
 .hide {
     display: none;
+}
+
+
+@media screen and (max-width: 1130px) {
+    .locations-table {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    main {
+        padding-left: 0;
+    }
+
+    .current-conditions {
+        position: relative;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: 80vw;
+    }
+
+    .table-section {
+        margin-left: 4rem;
+        margin-right: 4rem;
+    }
+}
+
+
+@media screen and (max-width: 1000px) {
+    .current-conditions {
+        grid-template-columns: min-content, 1fr;
+        min-width: 60vw;
+        gap: 0.5em;
+    }
+
+    .weather-icon {
+        padding-left: 0.5em;
+    }
+    
+    .temp {
+        font-size: 2rem;
+        padding: 0;
+    }
+    
+    .temp-icon {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    .current-temp {
+        padding-left: 0;
+    }
+
+    .table-section {
+        margin-left: 3rem;
+        margin-right: 3rem;
+    }
+}
+
+
+@media screen and (max-width: 775px) {
+    .locations-table {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .current-conditions {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1em;
+        row-gap: 2em;
+    }
+
+    .weather-icon {
+        grid-column: 1 / 2;
+        padding-left: 0.5em;
+    }
+    
+    .temp {
+        grid-column: 2 / 3;
+        font-size: 3.5rem;
+        grid-row: 2 / 4;
+    }
+    
+    .temp-icon img {
+        height: 40px;
+        width: 20px;
+    }
+
+    .current-temp {
+        padding-left: 0.2rem;
+    }
+    
+    .feels-like {
+        grid-column: 1 / 2;
+    }
+    
+    .raining {
+        grid-column: 3 / 4;
+        grid-row: 2 / 3;
+    }
+
+    .windy {
+        grid-column: 3 / 4;
+    }
+
+    .left-align {
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .seven-day-overview {
+        width: 100px;
+    }
+
+    .forecast-table {
+        width: 94vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .table-section {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .current-conditions {
+        grid-template-columns: repeat(2, 1fr);
+        width: 70vw;
+    }
+
+    .weather-icon {
+        grid-column: 1 / 2;
+        padding-left: 1.5em;
+    }
+    
+    .temp {
+        grid-column: 1 / 2;
+        font-size: 2.5rem;
+        grid-row: 3 / 4;
+    }
+    
+    .feels-like {
+        grid-column: 2 / 3;
+    }
+    
+    .raining {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+    }
+
+    .windy {
+        grid-column: 1 / -1;
+    }
+
+    .upcoming-days img {
+        width: 42px;
+        height: 42px;
+    }
+
+    .seven-day-overview {
+        display: none;
+    }
+
+    .empty {
+        display: none;
+    }
+
+    .forecast-table {
+        width: 98vw;
+    }
+
+    .upcoming {
+        padding-bottom: 1rem;
+    }
+
+    .date-today, .date-tomorrow {
+        font-size: 0.9rem;
+    }
+
+    .td-wind, .th-wind {
+        display: none;
+    }
+}
+
+
+@media screen and (max-width: 485px) {
+    .popular {
+        font-size: 0.9rem;
+        min-width: 70px;
+    }
+    .left-align {
+        max-width: 200px;
+    }
+    .popular-th {
+        font-weight: bold;
+        font-size: 1.4rem;
+    }
+
+    .current-conditions {
+        width: 88vw;
+        margin-top: 1.5rem;
+    }
+
+    .is-raining-icon {
+        padding: 0;
+    }
+
+    .double-digit {
+        padding-left: 4.8rem;
+    }
+    
+    .wind-speed {
+        font-size: 1em;
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+
+    .max-min, .td-rain {
+        font-size: 0.85rem;
+    }
+
+    .date-today, .date-tomorrow {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 392px) {
+    .popular {
+        font-size: 0.83rem;
+        min-width: 60px;
+    }
+}
+
+@media screen and (max-width: 370px) {
+    .td-img img {
+        width: 42px;
+        height: 42px;
+    }
 }

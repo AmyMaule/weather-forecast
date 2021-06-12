@@ -28,7 +28,7 @@ isWindyIcon.innerHTML = `<img src="./images/wind-icon.png" width="30px" height="
 
 // weatherAPI uses the open weather map one call API
 const weatherAPI = {
-    // the api calls is: https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&units=metric&appid={API_key}
+    // the api call is: https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&units=metric&appid={API_key}
     key: "c73ff1dedf4b4bfc101b045bb7809c2e",
     baseURL: "https://api.openweathermap.org/data/2.5/onecall",
 };
@@ -45,7 +45,7 @@ function runQuery(e) {
 // may need to come back later to edit the state and country code parts of the geocodingAPI object (commented inside)
 // geocodingAPI uses the city name passed into the search bar and converts it to latitude and longitude coordinates, as these are required by the weatherAPI
 const geocodingAPI = {
-    // the api call is: http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
+    // the api call is: https://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
     key: "c73ff1dedf4b4bfc101b045bb7809c2e",
     baseURL: "https://api.openweathermap.org/geo/1.0/direct",
 };
@@ -80,6 +80,7 @@ function getCurrentWeather(lat, lon) {
 }
 
 function displayMainResults(data) {
+    searchBar.value = "";
     // removing classes so that the previous search doesn't affect the current search
     isRainingMm.classList.remove("double-digit");
     isRainingMm.classList.remove("triple-digit");
@@ -210,7 +211,6 @@ function display48HourIcons(data) {
     let hoursInLocation = Math.round(
         currentTimeInHoursUTC + data.timezone_offset / 3600
     );
-    console.log("current time in timezone: ", hoursInLocation);
 
     let hours;
     let tdTop = [tdNightTop, tdMorningTop, tdAfternoonTop, tdEveningTop];
@@ -234,7 +234,6 @@ function display48HourIcons(data) {
 
     for (let i = 0; i < tdTop.length; i++) {
         if (hours - hoursInLocation >= 0) {
-            // console.log(data.hourly[hours-hoursInLocation])
             tdTop[i].innerHTML = `<img src="./weather-icons/${getWeatherIcon(
                 data.hourly[hours - hoursInLocation].weather[0].main,
                 data.hourly[hours - hoursInLocation].weather[0].description
@@ -273,19 +272,19 @@ function display48HourData(dataArray) {
     let today = 0;
     let tomorrow = 1;
     if (hoursInLocation < 21) {
-        dateToday.innerHTML = new Date().toDateString();
-        dateTomorrow.innerHTML = new Date(
-            new Date().getTime() + 86400000
-        ).toDateString();
+        // Check the width of the screen, if it is <=580px, the date string "Sat 12 Jun 2021" becomes "12 Jun", otherwise it can stay as it is
+        if (window.innerWidth <= 580) {
+            dateToday.innerHTML = new Date().toDateString().slice(4, 10);
+            dateTomorrow.innerHTML = new Date(new Date().getTime() + 86400000).toDateString().slice(4,10);
+        } else {
+            dateToday.innerHTML = new Date().toDateString();
+            dateTomorrow.innerHTML = new Date(new Date().getTime() + 86400000).toDateString();
+        }
     } else {
         today = 1;
         tomorrow = 2;
-        dateToday.innerHTML = new Date(
-            new Date().getTime() + 86400000
-        ).toDateString();
-        dateTomorrow.innerHTML = new Date(
-            new Date().getTime() + 2 * 86400000
-        ).toDateString();
+        dateToday.innerHTML = new Date(new Date().getTime() + 86400000).toDateString();
+        dateTomorrow.innerHTML = new Date(new Date().getTime() + 2 * 86400000).toDateString();
     }
 
     maxMinTop.innerHTML = `${Math.round(
@@ -305,19 +304,13 @@ function display48HourData(dataArray) {
 
     if (data.daily[tomorrow].rain || data.daily[tomorrow].snow) {
         if (data.daily[tomorrow].rain) {
-            tdRainBottom.innerHTML = `${data.daily[tomorrow].rain.toFixed(
-                1
-            )}mm`;
+            tdRainBottom.innerHTML = `${data.daily[tomorrow].rain.toFixed(1)}mm`;
         } else {
-            tdRainBottom.innerHTML = `${data.daily[tomorrow].snow.toFixed(
-                1
-            )}mm`;
+            tdRainBottom.innerHTML = `${data.daily[tomorrow].snow.toFixed(1)}mm`;
         }
     }
     tdWindTop.innerHTML = `${Math.round(data.daily[today].wind_speed)}m/s`;
-    tdWindBottom.innerHTML = `${Math.round(
-        data.daily[tomorrow].wind_speed
-    )}m/s`;
+    tdWindBottom.innerHTML = `${Math.round(data.daily[tomorrow].wind_speed)}m/s`;
     return data;
 }
 
@@ -332,8 +325,21 @@ function display7DayData(data) {
             data.daily[i + 1].weather[0].description
         )}.png" width="50px" height="50px"></img>`;
         let singleDate = new Date(data.daily[i].dt * 1000);
-        // the slice gets rid of all the rest of the date, only keeping characters 0 to 10
-        let singleDateString = new Date(singleDate).toString().slice(0, 10);
+        let singleDateString;
+        // If the window is less than about 800px wide, having the full date (eg. Sat Jun 12) makes the table too squashed, so using .slice(4, 10) gives the string "Jun 12" instead of the else statement, where .slice(0, 10) gives "Sat Jun 12"
+        if (window.innerWidth <= 800) {
+            if (window.innerWidth <= 400) {
+                singleDateString = new Date(singleDate).toString().slice(0, 3);
+            } else {
+            // the slice gets rid of all the rest of the date, only keeping characters 4 to 10
+            singleDateString = new Date(singleDate).toString().slice(4, 10);
+            // The left table header for the 7 day overview at the bottom says "Weather overview" when the screen is larger, and just "Overview" when it is smaller, to make more space for padding around the weather icons
+            document.querySelector(".seven-day-overview").innerHTML = "Overview";
+            }
+        } else {
+            // the slice gets rid of all the rest of the date, only keeping characters 0 to 10
+            singleDateString = new Date(singleDate).toString().slice(0, 10);
+        }
         dates[i].innerHTML = singleDateString;
     }
     return data;
