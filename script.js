@@ -29,6 +29,7 @@ isWindyIcon.innerHTML = `<img src="./images/wind-icon.png" width="30px" height="
 // weatherAPI uses the open weather map one call API
 const weatherAPI = {
     // the api call is: https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&units=metric&appid={API_key}
+    // the key is here only because this app is a frontend only proof of concept, few people will ever see the code and there is no penalty for sending too many requests so for it is here for simplicity
     key: "c73ff1dedf4b4bfc101b045bb7809c2e",
     baseURL: "https://api.openweathermap.org/data/2.5/onecall",
 };
